@@ -21,18 +21,34 @@
                                 <rect key="frame" x="20" y="548" width="560" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytJ-ae-QVq">
-                                <rect key="frame" x="20" y="178" width="42" height="21"/>
-                                <accessibility key="accessibilityConfiguration" identifier="latfield"/>
+                                <rect key="frame" x="20" y="178" width="560" height="21"/>
+                                <accessibility key="accessibilityConfiguration" identifier="latfield">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CY-2C-HJ9">
+                                <rect key="frame" x="20" y="214" width="560" height="21"/>
+                                <accessibility key="accessibilityConfiguration" identifier="longfield">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
-                                <rect key="frame" x="93" y="0.0" width="415" height="155"/>
+                                <rect key="frame" x="20" y="0.0" width="560" height="155"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CY-2C-HJ9">
-                                <rect key="frame" x="20" y="214" width="42" height="21"/>
-                                <accessibility key="accessibilityConfiguration" identifier="longfield"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-tx-wj8">
+                                <rect key="frame" x="20" y="289" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGe-bn-xqM">
+                                <rect key="frame" x="20" y="339" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,8 +59,10 @@
                     <connections>
                         <outlet property="bar_distance" destination="dJc-IY-TyW" id="NiO-NT-zeY"/>
                         <outlet property="buildingChooser" destination="xvo-52-VnY" id="wq9-a2-lyG"/>
-                        <outlet property="label_lat" destination="ytJ-ae-QVq" id="YwQ-Cf-X2h"/>
-                        <outlet property="label_long" destination="0CY-2C-HJ9" id="zxa-nX-6bD"/>
+                        <outlet property="label_current_lat" destination="ytJ-ae-QVq" id="txD-BJ-jjN"/>
+                        <outlet property="label_current_long" destination="0CY-2C-HJ9" id="jN4-f3-jww"/>
+                        <outlet property="label_target_lat" destination="nnE-tx-wj8" id="Iw7-TR-O3l"/>
+                        <outlet property="label_target_long" destination="EGe-bn-xqM" id="blE-yw-kXE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
