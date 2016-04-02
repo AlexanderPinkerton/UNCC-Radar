@@ -9,9 +9,7 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate {
-
-
+class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate{
     @IBOutlet weak var label_current_lat: UILabel!
     @IBOutlet weak var label_current_long: UILabel!
     @IBOutlet weak var label_target_lat: UILabel!
@@ -21,7 +19,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var imageView_needle: UIImageView!
     @IBOutlet weak var imageView_compass: UIImageView!
     
-    
+    var locValue:CLLocationCoordinate2D!
     let locationManager=CLLocationManager()
     var startLocation: CLLocation!
     var currentLocation: CLLocation!
@@ -180,6 +178,24 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         
     }
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+
+        print("current location = \(locValue.latitude) \(locValue.longitude)")
+        label_current_lat.text = "\(locValue.latitude)"
+        label_current_long .text = "\(locValue.longitude)"
+        label_current_lat.text = String(format: "%.4f",
+            locValue.latitude)
+        label_current_long.text = String(format: "%.4f",
+            locValue.longitude)
+        
+        currentLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        
+        if startLocation == nil {
+            startLocation = manager.location!
+        }
+        let bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
+    }
     
     
     
@@ -189,8 +205,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let distance = sqrt((xDist * xDist) + (yDist * yDist))
         return distance
     }
-
-    
     func degreesToRadians(degrees: Double) -> Double { return degrees * M_PI / 180.0 }
     func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / M_PI }
     
