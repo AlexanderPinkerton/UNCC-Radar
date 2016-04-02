@@ -18,12 +18,15 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var label_target_long: UILabel!
     @IBOutlet weak var buildingChooser: UIPickerView!
     @IBOutlet weak var bar_distance: UIProgressView!
+    @IBOutlet weak var imageView_needle: UIImageView!
+    @IBOutlet weak var imageView_compass: UIImageView!
+    
     
     let locationManager=CLLocationManager()
     var startLocation: CLLocation!
     var currentLocation: CLLocation!
     var targetLocation: CLLocation!
-    
+    var toRotate: CGFloat! = 0
     
     var buildings: [String: CLLocation] = [
         "Woodward": CLLocation(latitude: 35.307504, longitude: -80.735387),
@@ -96,23 +99,28 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         targetLocation = buildings["Woodward"]
    
-        
         self.locationManager.requestWhenInUseAuthorization()
+        
+       
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
             startLocation = nil
         }
         else{
             //display warning message here
             print("location service not enabled")
         }
+
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
@@ -142,29 +150,34 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         label_target_long.text = String(format: "%.4f",targetLocation.coordinate.longitude)
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(manager: CLLocationManager,didUpdateHeading newHeading:CLHeading) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+       let direction:CLLocationDirection = newHeading.magneticHeading
+        let radians:CGFloat = CGFloat(radiansToDegrees(direction))
+        print("direction is \(direction)")
+        print("radians is \(radians)")
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         label_current_lat.text = "\(locValue.latitude)"
         label_current_long .text = "\(locValue.longitude)"
-        
-        
-        var latestLocation: AnyObject = locations[locations.count - 1]
-        
         label_current_lat.text = String(format: "%.4f",
-            latestLocation.coordinate.latitude)
+            locValue.latitude)
         label_current_long.text = String(format: "%.4f",
-            latestLocation.coordinate.longitude)
+            locValue.longitude)
         
-        currentLocation = CLLocation(latitude: latestLocation.coordinate.latitude, longitude: latestLocation.coordinate.longitude)
+        currentLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
         
         if startLocation == nil {
-            startLocation = latestLocation as! CLLocation
+            startLocation = manager.location!
         }
+        let bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
         
+        //rotate bearing
+        rotateBearingView(imageView_compass, radians: radians)
         
-        //print(currentLocation.distanceFromLocation(targetLocation))
-        print(getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation))
+        //toRotate needle
+        let angle = radiansToDegrees(Double(radians))
+        rotateNeedleview(imageView_needle, degrees: CGFloat(angle + bearing))
+        
         
     }
     
@@ -186,23 +199,34 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let lat1 = degreesToRadians(point1.coordinate.latitude)
         let lon1 = degreesToRadians(point1.coordinate.longitude)
         
-        let lat2 = degreesToRadians(point2.coordinate.latitude);
-        let lon2 = degreesToRadians(point2.coordinate.longitude);
+        let lat2 = degreesToRadians(point2.coordinate.latitude)
+        let lon2 = degreesToRadians(point2.coordinate.longitude)
         
-        let dLon = lon2 - lon1;
+        let dlon = lon2 - lon1
+
         
-        let y = sin(dLon) * cos(lat2);
-        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon);
+        let y = sin(dlon) * cos(lat2);
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dlon);
         let radiansBearing = atan2(y, x);
         
         return radiansToDegrees(radiansBearing)
     }
     
+    func rotateNeedleview(view: UIImageView, degrees:CGFloat)
+    {
+        let transform = CGAffineTransformMakeRotation(CGFloat(degreesToRadians(Double(degrees))))
+        
+        UIView.animateWithDuration(1.0, animations: {
+            view.transform = transform
+        })
+    }
     
-    
-    
-    
-    
+    func rotateBearingView(view: UIImageView, radians: CGFloat){
+    let transform = CGAffineTransformMakeRotation(radians)
+        UIView.animateWithDuration(1.0, animations: {
+            view.transform = transform
+        })
+    }
     
 
 }

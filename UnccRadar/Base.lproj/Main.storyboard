@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
@@ -17,16 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-IY-TyW">
-                                <rect key="frame" x="20" y="548" width="560" height="2"/>
-                            </progressView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="BMc-Qf-g4g">
+                                <rect key="frame" x="95" y="-25" width="375" height="667"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytJ-ae-QVq">
                                 <rect key="frame" x="20" y="178" width="560" height="21"/>
                                 <accessibility key="accessibilityConfiguration" identifier="latfield">
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CY-2C-HJ9">
@@ -35,30 +34,57 @@
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
-                                <rect key="frame" x="20" y="0.0" width="560" height="155"/>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
+                                <rect key="frame" x="20" y="28" width="560" height="155"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-tx-wj8">
                                 <rect key="frame" x="20" y="289" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGe-bn-xqM">
-                                <rect key="frame" x="20" y="339" width="560" height="21"/>
+                                <rect key="frame" x="20" y="338" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="bearing" translatesAutoresizingMaskIntoConstraints="NO" id="OTn-I6-BeP">
+                                <rect key="frame" x="151" y="168" width="282" height="282"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="needle" translatesAutoresizingMaskIntoConstraints="NO" id="PYd-m3-OaL">
+                                <rect key="frame" x="183" y="272" width="219" height="74"/>
+                            </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-IY-TyW">
+                                <rect key="frame" x="111" y="465" width="362" height="2"/>
+                            </progressView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.55294117647058827" green="0.82352941176470584" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="xvo-52-VnY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="0aL-SQ-22P"/>
+                            <constraint firstItem="dJc-IY-TyW" firstAttribute="top" secondItem="OTn-I6-BeP" secondAttribute="bottom" constant="15" id="5bQ-2K-Mqu"/>
+                            <constraint firstItem="OTn-I6-BeP" firstAttribute="top" secondItem="xvo-52-VnY" secondAttribute="bottom" constant="-2" id="9dm-kv-aKn"/>
+                            <constraint firstItem="OTn-I6-BeP" firstAttribute="width" secondItem="xvo-52-VnY" secondAttribute="width" id="AFH-B7-8rb"/>
+                            <constraint firstItem="dJc-IY-TyW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hkl-sH-W0G"/>
+                            <constraint firstItem="BMc-Qf-g4g" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MnY-0g-OYd"/>
+                            <constraint firstItem="xvo-52-VnY" firstAttribute="leading" secondItem="PYd-m3-OaL" secondAttribute="trailing" constant="-382" id="Pk2-4w-DSe"/>
+                            <constraint firstItem="BMc-Qf-g4g" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wm4-RF-egq"/>
+                            <constraint firstItem="PYd-m3-OaL" firstAttribute="centerY" secondItem="OTn-I6-BeP" secondAttribute="centerY" id="aCG-sh-5ep"/>
+                            <constraint firstItem="OTn-I6-BeP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="by2-uF-mnI"/>
+                            <constraint firstItem="xvo-52-VnY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="deA-qT-jJQ"/>
+                            <constraint firstItem="OTn-I6-BeP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="f37-2s-k8u"/>
+                            <constraint firstItem="dJc-IY-TyW" firstAttribute="centerX" secondItem="OTn-I6-BeP" secondAttribute="centerX" id="u7T-1F-4CW"/>
+                            <constraint firstItem="PYd-m3-OaL" firstAttribute="centerX" secondItem="OTn-I6-BeP" secondAttribute="centerX" id="yJa-c6-fy4"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="bar_distance" destination="dJc-IY-TyW" id="NiO-NT-zeY"/>
                         <outlet property="buildingChooser" destination="xvo-52-VnY" id="wq9-a2-lyG"/>
+                        <outlet property="imageView_compass" destination="OTn-I6-BeP" id="bVV-1k-CXE"/>
+                        <outlet property="imageView_needle" destination="PYd-m3-OaL" id="osg-g0-6KF"/>
                         <outlet property="label_current_lat" destination="ytJ-ae-QVq" id="txD-BJ-jjN"/>
                         <outlet property="label_current_long" destination="0CY-2C-HJ9" id="jN4-f3-jww"/>
                         <outlet property="label_target_lat" destination="nnE-tx-wj8" id="Iw7-TR-O3l"/>
@@ -67,7 +93,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="565" y="537"/>
+            <point key="canvasLocation" x="625" y="468"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Background" width="375" height="667"/>
+        <image name="bearing" width="282" height="282"/>
+        <image name="needle" width="219" height="74"/>
+    </resources>
 </document>
