@@ -25,6 +25,8 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var currentLocation: CLLocation!
     var targetLocation: CLLocation!
     var toRotate: CGFloat! = 0
+    var bearing: Double! =  0.0
+    
     
     var buildings: [String: CLLocation] = [
         "Woodward": CLLocation(latitude: 35.307504, longitude: -80.735387),
@@ -149,8 +151,9 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func locationManager(manager: CLLocationManager,didUpdateHeading newHeading:CLHeading) {
+        
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-       let direction:CLLocationDirection = newHeading.magneticHeading
+       let direction:CLLocationDirection = -newHeading.trueHeading
         let radians:CGFloat = CGFloat(radiansToDegrees(direction))
         print("direction is \(direction)")
         print("radians is \(radians)")
@@ -167,21 +170,13 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         if startLocation == nil {
             startLocation = manager.location!
         }
-        let bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
-        
-        //rotate bearing
-        rotateBearingView(imageView_compass, radians: radians)
-        
-        //toRotate needle
-        let angle = radiansToDegrees(Double(radians))
-        rotateNeedleview(imageView_needle, degrees: CGFloat(angle + bearing))
+
+        onPositionChange(direction + bearing, image: imageView_needle)
         
         
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-
-        print("current location = \(locValue.latitude) \(locValue.longitude)")
         label_current_lat.text = "\(locValue.latitude)"
         label_current_long .text = "\(locValue.longitude)"
         label_current_lat.text = String(format: "%.4f",
@@ -194,7 +189,10 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         if startLocation == nil {
             startLocation = manager.location!
         }
-        let bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
+        
+        bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
+        
+        
     }
     
     
@@ -218,27 +216,25 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         let dlon = lon2 - lon1
 
-        
         let y = sin(dlon) * cos(lat2);
         let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dlon);
-        let radiansBearing = atan2(y, x);
+        var radiansBearing = atan2(y, x);
+        
+        if(radiansBearing < 0.0)
+        {
+            radiansBearing += 2*M_PI;
+        }
         
         return radiansToDegrees(radiansBearing)
     }
     
-    func rotateNeedleview(view: UIImageView, degrees:CGFloat)
+    func onPositionChange(angle: Double, image: UIImageView)
     {
-        let transform = CGAffineTransformMakeRotation(CGFloat(degreesToRadians(Double(degrees))))
-        
-        UIView.animateWithDuration(1.0, animations: {
-            view.transform = transform
-        })
-    }
-    
-    func rotateBearingView(view: UIImageView, radians: CGFloat){
-    let transform = CGAffineTransformMakeRotation(radians)
-        UIView.animateWithDuration(1.0, animations: {
-            view.transform = transform
+        print("on position change")
+        UIView.animateWithDuration(1.0, animations:
+            {
+                let a = CGFloat(self.degreesToRadians(angle))
+                image.transform = CGAffineTransformMakeRotation(a)
         })
     }
     
