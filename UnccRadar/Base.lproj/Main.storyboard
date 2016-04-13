@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,9 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="BMc-Qf-g4g">
-                                <rect key="frame" x="95" y="-25" width="375" height="667"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytJ-ae-QVq">
                                 <rect key="frame" x="20" y="178" width="560" height="21"/>
                                 <accessibility key="accessibilityConfiguration" identifier="latfield">
@@ -37,7 +34,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
                                 <rect key="frame" x="20" y="28" width="560" height="155"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-tx-wj8">
@@ -55,29 +52,30 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-IY-TyW">
                                 <rect key="frame" x="111" y="465" width="362" height="2"/>
                             </progressView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="bearing" translatesAutoresizingMaskIntoConstraints="NO" id="CPC-Qc-z6Y">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="bearing" translatesAutoresizingMaskIntoConstraints="NO" id="CPC-Qc-z6Y">
                                 <rect key="frame" x="151" y="168" width="282" height="282"/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="needle" translatesAutoresizingMaskIntoConstraints="NO" id="PYd-m3-OaL">
                                 <rect key="frame" x="183" y="272" width="219" height="74"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKb-Et-lwt">
+                                <rect key="frame" x="95" y="429" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.55294117647058827" green="0.82352941176470584" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xvo-52-VnY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="0aL-SQ-22P"/>
-                            <constraint firstItem="CPC-Qc-z6Y" firstAttribute="centerX" secondItem="BMc-Qf-g4g" secondAttribute="centerX" id="5bz-Ud-16p"/>
-                            <constraint firstItem="PYd-m3-OaL" firstAttribute="centerY" secondItem="BMc-Qf-g4g" secondAttribute="centerY" id="Dz8-lM-3YL"/>
                             <constraint firstItem="dJc-IY-TyW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hkl-sH-W0G"/>
-                            <constraint firstItem="PYd-m3-OaL" firstAttribute="centerX" secondItem="BMc-Qf-g4g" secondAttribute="centerX" id="KEL-p1-rum"/>
-                            <constraint firstItem="BMc-Qf-g4g" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MnY-0g-OYd"/>
                             <constraint firstItem="xvo-52-VnY" firstAttribute="leading" secondItem="PYd-m3-OaL" secondAttribute="trailing" constant="-382" id="Pk2-4w-DSe"/>
-                            <constraint firstItem="CPC-Qc-z6Y" firstAttribute="centerY" secondItem="BMc-Qf-g4g" secondAttribute="centerY" id="WkH-Os-Jsy"/>
-                            <constraint firstItem="BMc-Qf-g4g" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wm4-RF-egq"/>
                             <constraint firstItem="xvo-52-VnY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="deA-qT-jJQ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bar_distance" destination="dJc-IY-TyW" id="NiO-NT-zeY"/>
+                        <outlet property="bar_label" destination="aKb-Et-lwt" id="JsY-uS-kVJ"/>
                         <outlet property="buildingChooser" destination="xvo-52-VnY" id="wq9-a2-lyG"/>
                         <outlet property="imageView_needle" destination="PYd-m3-OaL" id="V9P-Uq-1Wg"/>
                         <outlet property="label_current_lat" destination="ytJ-ae-QVq" id="txD-BJ-jjN"/>
@@ -92,7 +90,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Background" width="375" height="667"/>
         <image name="bearing" width="282" height="282"/>
         <image name="needle" width="219" height="74"/>
     </resources>
