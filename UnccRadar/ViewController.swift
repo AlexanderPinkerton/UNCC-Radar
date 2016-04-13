@@ -18,14 +18,23 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var bar_distance: UIProgressView!
     @IBOutlet weak var imageView_needle: UIImageView!
     @IBOutlet weak var imageView_compass: UIImageView!
+    @IBOutlet weak var bar_label: UILabel!
     
     var locValue:CLLocationCoordinate2D!
     let locationManager=CLLocationManager()
     var startLocation: CLLocation!
     var currentLocation: CLLocation!
     var targetLocation: CLLocation!
+    
+    var direction:CLLocationDirection!
+    
     var toRotate: CGFloat! = 0
     var bearing: Double! =  0.0
+    
+    var currentDistance: Double = 0
+    var startDistance: Double = 0
+    
+    var currentTarget: String!
     
     
     var buildings: [String: CLLocation] = [
@@ -98,10 +107,12 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         buildingChooser.delegate = self
         
         targetLocation = buildings["Woodward"]
-   
+        
         self.locationManager.requestWhenInUseAuthorization()
         
-       
+        let a = CGFloat(self.degreesToRadians(90))
+        imageView_needle.transform = CGAffineTransformMakeRotation(a)
+        
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -114,10 +125,10 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             //display warning message here
             print("location service not enabled")
         }
-
+        
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -148,12 +159,17 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         targetLocation = buildings[Array(buildings.keys)[row]]
         label_target_lat.text = String(format: "%.4f",targetLocation.coordinate.latitude)
         label_target_long.text = String(format: "%.4f",targetLocation.coordinate.longitude)
+        
+        currentTarget = Array(buildings.keys)[row];
+        startDistance = getDistance(loc1: currentLocation, loc2: targetLocation)
+        
+        
     }
     
     func locationManager(manager: CLLocationManager,didUpdateHeading newHeading:CLHeading) {
         
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-       let direction:CLLocationDirection = -newHeading.trueHeading
+        direction = -newHeading.trueHeading
         let radians:CGFloat = CGFloat(radiansToDegrees(direction))
         print("direction is \(direction)")
         print("radians is \(radians)")
@@ -170,7 +186,8 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         if startLocation == nil {
             startLocation = manager.location!
         }
-
+        
+        //Spin the needle if heading changed.
         onPositionChange(direction + bearing, image: imageView_needle)
         
         
@@ -190,7 +207,21 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             startLocation = manager.location!
         }
         
+        //Get bearing for the rotation of the compass
         bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
+        
+        //Update the distance to the current target
+        var distance = getDistance(loc1: currentLocation, loc2: targetLocation)
+        
+        
+        bar_distance.setProgress(Float(startDistance - distance), animated: true)
+        bar_label.text = (String)(startDistance - distance);
+        
+        
+        
+        //Spin the needle if direction changed.
+        //onPositionChange(direction + bearing, image: imageView_needle)
+        
         
         
     }
@@ -203,6 +234,8 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let distance = sqrt((xDist * xDist) + (yDist * yDist))
         return distance
     }
+    
+    
     func degreesToRadians(degrees: Double) -> Double { return degrees * M_PI / 180.0 }
     func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / M_PI }
     
@@ -215,7 +248,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let lon2 = degreesToRadians(point2.coordinate.longitude)
         
         let dlon = lon2 - lon1
-
+        
         let y = sin(dlon) * cos(lat2);
         let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dlon);
         var radiansBearing = atan2(y, x);
@@ -238,6 +271,6 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         })
     }
     
-
+    
 }
 
