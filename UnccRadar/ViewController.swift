@@ -98,6 +98,9 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         buildingChooser.delegate = self
         
         targetLocation = buildings["Woodward"]
+        
+        
+        imageView_needle.transform = CGAffineTransformMakeRotation(CGFloat(self.degreesToRadians(90)))
    
         self.locationManager.requestWhenInUseAuthorization()
         
