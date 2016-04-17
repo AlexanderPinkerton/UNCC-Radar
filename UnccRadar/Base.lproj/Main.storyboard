@@ -16,8 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="OZb-lf-BPP">
+                                <rect key="frame" x="98" y="-34" width="375" height="667"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytJ-ae-QVq">
-                                <rect key="frame" x="20" y="178" width="560" height="21"/>
+                                <rect key="frame" x="144" y="507" width="127" height="21"/>
                                 <accessibility key="accessibilityConfiguration" identifier="latfield">
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
@@ -26,7 +29,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CY-2C-HJ9">
-                                <rect key="frame" x="20" y="214" width="560" height="21"/>
+                                <rect key="frame" x="308" y="508" width="253" height="21"/>
                                 <accessibility key="accessibilityConfiguration" identifier="longfield">
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
@@ -34,50 +37,50 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
-                                <rect key="frame" x="20" y="28" width="560" height="155"/>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-tx-wj8">
-                                <rect key="frame" x="20" y="289" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGe-bn-xqM">
-                                <rect key="frame" x="20" y="338" width="560" height="21"/>
+                                <rect key="frame" x="308" y="559" width="277" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-IY-TyW">
-                                <rect key="frame" x="111" y="465" width="362" height="2"/>
-                            </progressView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="bearing" translatesAutoresizingMaskIntoConstraints="NO" id="CPC-Qc-z6Y">
-                                <rect key="frame" x="151" y="168" width="282" height="282"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="needle" translatesAutoresizingMaskIntoConstraints="NO" id="PYd-m3-OaL">
-                                <rect key="frame" x="183" y="272" width="219" height="74"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKb-Et-lwt">
-                                <rect key="frame" x="95" y="429" width="375" height="21"/>
+                                <rect key="frame" x="98" y="449" width="375" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-tx-wj8">
+                                <rect key="frame" x="144" y="558" width="127" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-IY-TyW">
+                                <rect key="frame" x="98" y="478" width="375" height="2"/>
+                            </progressView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="needle" translatesAutoresizingMaskIntoConstraints="NO" id="6jZ-FK-fWI">
+                                <rect key="frame" x="243" y="135" width="74" height="219"/>
+                            </imageView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvo-52-VnY">
+                                <rect key="frame" x="5" y="-4" width="560" height="155"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="23" y="20" width="357" height="155"/>
+                                </variation>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.55294117647058827" green="0.82352941176470584" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="xvo-52-VnY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="0aL-SQ-22P"/>
-                            <constraint firstItem="dJc-IY-TyW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hkl-sH-W0G"/>
-                            <constraint firstItem="xvo-52-VnY" firstAttribute="leading" secondItem="PYd-m3-OaL" secondAttribute="trailing" constant="-382" id="Pk2-4w-DSe"/>
-                            <constraint firstItem="xvo-52-VnY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="deA-qT-jJQ"/>
+                            <constraint firstItem="6jZ-FK-fWI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B07-P8-228"/>
+                            <constraint firstItem="6jZ-FK-fWI" firstAttribute="centerY" secondItem="OZb-lf-BPP" secondAttribute="centerY" id="NaJ-hf-9ME"/>
+                            <constraint firstItem="OZb-lf-BPP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aIC-QY-3sl"/>
+                            <constraint firstItem="OZb-lf-BPP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="cgR-NK-3Ip"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bar_distance" destination="dJc-IY-TyW" id="NiO-NT-zeY"/>
                         <outlet property="bar_label" destination="aKb-Et-lwt" id="JsY-uS-kVJ"/>
                         <outlet property="buildingChooser" destination="xvo-52-VnY" id="wq9-a2-lyG"/>
-                        <outlet property="imageView_needle" destination="PYd-m3-OaL" id="V9P-Uq-1Wg"/>
+                        <outlet property="imageView_needle" destination="6jZ-FK-fWI" id="xS9-Dg-wsA"/>
                         <outlet property="label_current_lat" destination="ytJ-ae-QVq" id="txD-BJ-jjN"/>
                         <outlet property="label_current_long" destination="0CY-2C-HJ9" id="jN4-f3-jww"/>
                         <outlet property="label_target_lat" destination="nnE-tx-wj8" id="Iw7-TR-O3l"/>
@@ -86,11 +89,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="625" y="468"/>
+            <point key="canvasLocation" x="624" y="468"/>
         </scene>
     </scenes>
     <resources>
-        <image name="bearing" width="282" height="282"/>
-        <image name="needle" width="219" height="74"/>
+        <image name="Background" width="375" height="667"/>
+        <image name="needle" width="74" height="219"/>
     </resources>
 </document>

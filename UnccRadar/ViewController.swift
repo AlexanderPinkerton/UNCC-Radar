@@ -22,17 +22,18 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     var locValue:CLLocationCoordinate2D!
     let locationManager=CLLocationManager()
-    var startLocation: CLLocation!
     var currentLocation: CLLocation!
     var targetLocation: CLLocation!
-    
+    var user: CLLocationCoordinate2D!
     var direction:CLLocationDirection!
     
     var toRotate: CGFloat! = 0
     var bearing: Double! =  0.0
     
+    var degrees = 0.0
+    
     var currentDistance: Double = 0
-    var startDistance: Double = 0
+    var startDistance: Double = 0.0
     
     var currentTarget: String!
     
@@ -48,7 +49,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         "Barnhardt Student Activity Center": CLLocation(latitude: 35.306142, longitude: -80.734261),
         "Belk Gym": CLLocation(latitude: 35.305385, longitude:-80.735473),
         "Cone University Center": CLLocation(latitude: 35.30529, longitude: -80.733135),
-        "King": CLLocation(latitude: 35.30508, longitude: -80.732615),
+        "King": CLLocation(latitude: 35.305224, longitude: -80.732450),
         "Atkins": CLLocation(latitude: 35.305707, longitude: -80.731922),
         "Reese": CLLocation(latitude: 35.304687, longitude: -80.732485),
         "Colvard": CLLocation(latitude: 35.305013, longitude: -80.731749),
@@ -105,26 +106,44 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         // Do any additional setup after loading the view, typically from a nib.
         buildingChooser.dataSource = self
         buildingChooser.delegate = self
-        
         targetLocation = buildings["Woodward"]
         
+
         self.locationManager.requestWhenInUseAuthorization()
-        
-        let a = CGFloat(self.degreesToRadians(90))
-        imageView_needle.transform = CGAffineTransformMakeRotation(a)
-        
-        
+        direction = 0.00
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = kCLDistanceFilterNone
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
-            startLocation = nil
         }
         else{
             //display warning message here
             print("location service not enabled")
         }
+
+        
+        user = locationManager.location?.coordinate
+        calculateUserAngle(user)
+        
+        
+    }
+    func calculateUserAngle(user:CLLocationCoordinate2D) {
+        
+        var x = 0.0; var y = 0.0;  var deg = 0.0; var delLon = 0.0;
+        
+        delLon = targetLocation.coordinate.longitude - user.longitude;
+        y = sin(delLon) * cos(targetLocation.coordinate.latitude);
+        x = cos(user.latitude) * sin(targetLocation.coordinate.latitude) - sin(user.latitude) * cos(targetLocation.coordinate.latitude) * cos(delLon);
+    
+        deg = radiansToDegrees(atan2(y, x))
+        if(deg<0){
+            deg = -deg;
+        } else {
+            deg = 360 - deg;
+        }    
+        degrees = deg;
         
         
     }
@@ -161,79 +180,43 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         label_target_long.text = String(format: "%.4f",targetLocation.coordinate.longitude)
         
         currentTarget = Array(buildings.keys)[row];
-        startDistance = getDistance(loc1: currentLocation, loc2: targetLocation)
+        startDistance = currentLocation.distanceFromLocation(targetLocation)
         
         
     }
     
     func locationManager(manager: CLLocationManager,didUpdateHeading newHeading:CLHeading) {
         
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        direction = -newHeading.trueHeading
-        let radians:CGFloat = CGFloat(radiansToDegrees(direction))
-        print("direction is \(direction)")
-        print("radians is \(radians)")
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-        label_current_lat.text = "\(locValue.latitude)"
-        label_current_long .text = "\(locValue.longitude)"
-        label_current_lat.text = String(format: "%.4f",
-            locValue.latitude)
-        label_current_long.text = String(format: "%.4f",
-            locValue.longitude)
-        
-        currentLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-        
-        if startLocation == nil {
-            startLocation = manager.location!
-        }
-        
         //Spin the needle if heading changed.
-        onPositionChange(direction + bearing, image: imageView_needle)
-        
+        print(newHeading.magneticHeading)
+        onPositionChange((degrees-90)-newHeading.magneticHeading, image: imageView_needle)
+        onPositionChange(-newHeading.magneticHeading , image: imageView_compass)
         
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        label_current_lat.text = "\(locValue.latitude)"
-        label_current_long .text = "\(locValue.longitude)"
+        
+        let curLoc:CLLocationCoordinate2D = manager.location!.coordinate
+        calculateUserAngle(curLoc)
+        label_current_lat.text = "\(curLoc.latitude)"
+        label_current_long .text = "\(curLoc.longitude)"
         label_current_lat.text = String(format: "%.4f",
-            locValue.latitude)
+            curLoc.latitude)
         label_current_long.text = String(format: "%.4f",
-            locValue.longitude)
+            curLoc.longitude)
         
-        currentLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-        
-        if startLocation == nil {
-            startLocation = manager.location!
-        }
-        
-        //Get bearing for the rotation of the compass
-        bearing = getBearingBetweenTwoPoints1(currentLocation, point2: targetLocation)
+        currentLocation = CLLocation(latitude: curLoc.latitude, longitude: curLoc.longitude)
+    
         
         //Update the distance to the current target
-        var distance = getDistance(loc1: currentLocation, loc2: targetLocation)
-        
-        
-        bar_distance.setProgress(Float(startDistance - distance), animated: true)
-        bar_label.text = (String)(startDistance - distance);
-        
-        
-        
-        //Spin the needle if direction changed.
-        //onPositionChange(direction + bearing, image: imageView_needle)
-        
-        
-        
+        let distance = Double(currentLocation.distanceFromLocation(targetLocation))
+        print("start distant:\(startDistance) new distance: \(distance)")
+        let progress = 1 - (startDistance/distance)
+        print(progress)
+        bar_distance.setProgress(Float(progress), animated: true)
+        bar_label.text = "Distance: "+(String)(Int(distance*3.28084))+" feet"
+
     }
     
-    
-    
-    func getDistance(loc1 a: CLLocation, loc2 b: CLLocation) -> Double{
-        let xDist = (b.coordinate.latitude - a.coordinate.latitude)
-        let yDist = (b.coordinate.longitude - a.coordinate.longitude)
-        let distance = sqrt((xDist * xDist) + (yDist * yDist))
-        return distance
-    }
     
     
     func degreesToRadians(degrees: Double) -> Double { return degrees * M_PI / 180.0 }
@@ -267,6 +250,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         UIView.animateWithDuration(1.0, animations:
             {
                 let a = CGFloat(self.degreesToRadians(angle))
+                print(angle)
                 image.transform = CGAffineTransformMakeRotation(a)
         })
     }
