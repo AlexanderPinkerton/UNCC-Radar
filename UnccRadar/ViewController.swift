@@ -17,7 +17,6 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var buildingChooser: UIPickerView!
     @IBOutlet weak var bar_distance: UIProgressView!
     @IBOutlet weak var imageView_needle: UIImageView!
-    @IBOutlet weak var imageView_compass: UIImageView!
     @IBOutlet weak var bar_label: UILabel!
     
     var locValue:CLLocationCoordinate2D!
@@ -39,7 +38,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     
     var buildings: [String: CLLocation] = [
-        "Woodward": CLLocation(latitude: 35.307504, longitude: -80.735387),
+        "Woodward": CLLocation(latitude: 35.307100, longitude: -80.735971),
         "Portal": CLLocation(latitude: 35.311696, longitude: -80.74307),
         "Epic": CLLocation(latitude: 35.309726, longitude: -80.743411),
         "West Deck": CLLocation(latitude: 35.30547, longitude: -80.736605),
@@ -50,7 +49,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         "Belk Gym": CLLocation(latitude: 35.305385, longitude:-80.735473),
         "Cone University Center": CLLocation(latitude: 35.30529, longitude: -80.733135),
         "King": CLLocation(latitude: 35.305224, longitude: -80.732450),
-        "Atkins": CLLocation(latitude: 35.305707, longitude: -80.731922),
+        "Atkins": CLLocation(latitude: 35.305419, longitude:-80.732205),
         "Reese": CLLocation(latitude: 35.304687, longitude: -80.732485),
         "Colvard": CLLocation(latitude: 35.305013, longitude: -80.731749),
         "Rowe": CLLocation(latitude: 35.304403, longitude: -80.730719),
@@ -60,7 +59,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         "Kennedy": CLLocation(latitude: 35.305967, longitude: -80.730883),
         "Friday": CLLocation(latitude: 35.306319, longitude: -80.72993),
         "Fretwell": CLLocation(latitude: 35.30616, longitude: -80.728978),
-        "Cato": CLLocation(latitude: 35.305414, longitude: -80.728674),
+        "Cato": CLLocation(latitude: 35.305447, longitude: -80.728572),
         "McEniry": CLLocation(latitude: 35.307091, longitude: -80.730017),
         "Smith": CLLocation(latitude: 35.306871, longitude: -80.731576),
         "Cameron Hall": CLLocation(latitude: 35.307694, longitude: -80.73123),
@@ -106,7 +105,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         // Do any additional setup after loading the view, typically from a nib.
         buildingChooser.dataSource = self
         buildingChooser.delegate = self
-        targetLocation = buildings["Woodward"]
+        targetLocation = buildings["Atkins"]
         
 
         self.locationManager.requestWhenInUseAuthorization()
@@ -167,7 +166,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     //MARK: Delegates
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Array(buildings.keys)[row]
+        return Array(buildings.keys).sort(<)[row]
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -175,11 +174,11 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         //label_lat.text = buildingList[row]
         
         //var location: Location!
-        targetLocation = buildings[Array(buildings.keys)[row]]
+        targetLocation = buildings[Array(buildings.keys).sort(<)[row]]
         label_target_lat.text = String(format: "%.4f",targetLocation.coordinate.latitude)
         label_target_long.text = String(format: "%.4f",targetLocation.coordinate.longitude)
         
-        currentTarget = Array(buildings.keys)[row];
+        currentTarget = Array(buildings.keys).sort(<)[row];
         startDistance = currentLocation.distanceFromLocation(targetLocation)
         
         
@@ -188,9 +187,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     func locationManager(manager: CLLocationManager,didUpdateHeading newHeading:CLHeading) {
         
         //Spin the needle if heading changed.
-        print(newHeading.magneticHeading)
-        onPositionChange((degrees-90)-newHeading.magneticHeading, image: imageView_needle)
-        onPositionChange(-newHeading.magneticHeading , image: imageView_compass)
+        onPositionChange((degrees)-newHeading.magneticHeading, image: imageView_needle)
         
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -209,11 +206,9 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //Update the distance to the current target
         let distance = Double(currentLocation.distanceFromLocation(targetLocation))
-        print("start distant:\(startDistance) new distance: \(distance)")
         let progress = 1 - (startDistance/distance)
-        print(progress)
-        bar_distance.setProgress(Float(progress), animated: true)
-        bar_label.text = "Distance: "+(String)(Int(distance*3.28084))+" feet"
+        bar_distance.setProgress(Float(progress), animated: false)
+        bar_label.text = (String)(Int(distance))+"Meters"
 
     }
     
@@ -246,11 +241,9 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     func onPositionChange(angle: Double, image: UIImageView)
     {
-        print("on position change")
         UIView.animateWithDuration(1.0, animations:
             {
                 let a = CGFloat(self.degreesToRadians(angle))
-                print(angle)
                 image.transform = CGAffineTransformMakeRotation(a)
         })
     }
