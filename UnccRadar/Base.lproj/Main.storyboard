@@ -85,7 +85,7 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="53" y="626" width="295" height="40"/>
+                                    <rect key="frame" x="53" y="681" width="295" height="40"/>
                                     <mask key="constraints">
                                         <include reference="McX-N3-UO7"/>
                                     </mask>
@@ -100,7 +100,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="53" y="635" width="295" height="21"/>
+                                    <rect key="frame" x="53" y="690" width="295" height="21"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -110,6 +110,7 @@
                             <constraint firstItem="xvo-52-VnY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1Ts-ZB-T9i"/>
                             <constraint firstItem="nnE-tx-wj8" firstAttribute="top" secondItem="ytJ-ae-QVq" secondAttribute="bottom" constant="30" id="HrG-dh-woD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cJz-PG-hi8" secondAttribute="trailing" constant="32" id="Ncp-Jf-iKB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dJc-IY-TyW" secondAttribute="bottom" constant="79" id="Nq8-EH-FBf"/>
                             <constraint firstItem="0CY-2C-HJ9" firstAttribute="top" secondItem="dJc-IY-TyW" secondAttribute="bottom" constant="35" id="T7X-hI-eho"/>
                             <constraint firstItem="0CY-2C-HJ9" firstAttribute="leading" secondItem="ytJ-ae-QVq" secondAttribute="trailing" constant="76" id="X9K-Xx-xuB"/>
                             <constraint firstItem="pxu-W9-whB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Zxb-dV-8F1"/>
@@ -119,7 +120,6 @@
                             <constraint firstItem="cJz-PG-hi8" firstAttribute="centerY" secondItem="dJc-IY-TyW" secondAttribute="centerY" id="gAU-h6-pWT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ytJ-ae-QVq" secondAttribute="leading" id="iya-yc-ZdC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dJc-IY-TyW" secondAttribute="trailing" constant="-8" id="jPU-Wk-o2j"/>
-                            <constraint firstItem="dJc-IY-TyW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="451" id="l2J-Q4-Id8"/>
                             <constraint firstItem="xvo-52-VnY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="nbj-RK-NWL"/>
                             <constraint firstItem="ytJ-ae-QVq" firstAttribute="top" secondItem="dJc-IY-TyW" secondAttribute="bottom" constant="35" id="pI2-ba-Iqc"/>
                             <constraint firstItem="pxu-W9-whB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qMt-Cj-Mz4"/>
@@ -145,10 +145,10 @@
                                 <exclude reference="0WM-OB-9TQ"/>
                                 <exclude reference="bNM-ba-4bB"/>
                                 <exclude reference="jPU-Wk-o2j"/>
-                                <exclude reference="l2J-Q4-Id8"/>
                                 <exclude reference="Ncp-Jf-iKB"/>
                                 <exclude reference="fzI-dY-C7T"/>
                                 <exclude reference="gAU-h6-pWT"/>
+                                <exclude reference="Nq8-EH-FBf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -171,10 +171,10 @@
                                 <include reference="0WM-OB-9TQ"/>
                                 <include reference="bNM-ba-4bB"/>
                                 <include reference="jPU-Wk-o2j"/>
-                                <include reference="l2J-Q4-Id8"/>
                                 <include reference="Ncp-Jf-iKB"/>
                                 <include reference="fzI-dY-C7T"/>
                                 <include reference="gAU-h6-pWT"/>
+                                <include reference="Nq8-EH-FBf"/>
                             </mask>
                         </variation>
                     </view>
