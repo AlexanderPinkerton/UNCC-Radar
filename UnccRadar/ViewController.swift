@@ -26,6 +26,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var user: CLLocationCoordinate2D!
     var direction:CLLocationDirection!
     
+    @IBOutlet weak var label_eta: UILabel!
     var toRotate: CGFloat! = 0
     var bearing: Double! =  0.0
     
@@ -202,13 +203,25 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             curLoc.longitude)
         
         currentLocation = CLLocation(latitude: curLoc.latitude, longitude: curLoc.longitude)
-    
         
         //Update the distance to the current target
         let distance = Double(currentLocation.distanceFromLocation(targetLocation))
         let progress = 1 - (distance/startDistance)
         bar_distance.setProgress(Float(progress), animated: false)
         bar_label.text = (String)(Int(distance))+" Meters"
+        
+        //get eta
+        let speed = currentLocation.speed
+        print(speed)
+        let eta = distance/speed
+        
+        if(speed != -1){
+            label_eta.text = "Time remaining: \(eta)"
+        }
+        else{
+            label_eta.text = "Time remaining: N/A"
+        }
+        
 
     }
     
