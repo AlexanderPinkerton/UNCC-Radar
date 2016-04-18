@@ -206,9 +206,9 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //Update the distance to the current target
         let distance = Double(currentLocation.distanceFromLocation(targetLocation))
-        let progress = 1 - (startDistance/distance)
+        let progress = 1 - (distance/startDistance)
         bar_distance.setProgress(Float(progress), animated: false)
-        bar_label.text = (String)(Int(distance))+"Meters"
+        bar_label.text = (String)(Int(distance))+" Meters"
 
     }
     
