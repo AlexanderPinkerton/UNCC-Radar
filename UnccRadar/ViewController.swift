@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-
+import MapKit
 class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate{
     @IBOutlet weak var label_current_lat: UILabel!
     @IBOutlet weak var label_current_long: UILabel!
@@ -29,13 +29,12 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var label_eta: UILabel!
     var toRotate: CGFloat! = 0
     var bearing: Double! =  0.0
-    
     var degrees = 0.0
     
     var currentDistance: Double = 0
     var startDistance: Double = 0.0
     
-    var currentTarget: String!
+    var currentTarget: String! = "Atkins"
     
     
     var buildings: [String: CLLocation] = [
@@ -125,25 +124,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
 
         
         user = locationManager.location?.coordinate
-        calculateUserAngle(user)
-        
-        
-    }
-    func calculateUserAngle(user:CLLocationCoordinate2D) {
-        
-        var x = 0.0; var y = 0.0;  var deg = 0.0; var delLon = 0.0;
-        
-        delLon = targetLocation.coordinate.longitude - user.longitude;
-        y = sin(delLon) * cos(targetLocation.coordinate.latitude);
-        x = cos(user.latitude) * sin(targetLocation.coordinate.latitude) - sin(user.latitude) * cos(targetLocation.coordinate.latitude) * cos(delLon);
-    
-        deg = radiansToDegrees(atan2(y, x))
-        if(deg<0){
-            deg = -deg;
-        } else {
-            deg = 360 - deg;
-        }    
-        degrees = deg;
+        if(user != nil){calculateUserAngle(user)}
         
         
     }
@@ -175,13 +156,14 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         //label_lat.text = buildingList[row]
         
         //var location: Location!
+        print("start sort")
         targetLocation = buildings[Array(buildings.keys).sort(<)[row]]
+        print("finish sort")
         label_target_lat.text = String(format: "%.4f",targetLocation.coordinate.latitude)
         label_target_long.text = String(format: "%.4f",targetLocation.coordinate.longitude)
         
-        currentTarget = Array(buildings.keys).sort(<)[row];
+        currentTarget = Array(buildings.keys).sort(<)[row]
         startDistance = currentLocation.distanceFromLocation(targetLocation)
-        
         
     }
     
@@ -189,6 +171,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //Spin the needle if heading changed.
         onPositionChange((degrees)-newHeading.magneticHeading, image: imageView_needle)
+        updateDistance()
         
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -205,28 +188,32 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         currentLocation = CLLocation(latitude: curLoc.latitude, longitude: curLoc.longitude)
         
         //Update the distance to the current target
-        let distance = Double(currentLocation.distanceFromLocation(targetLocation))
-        let progress = 1 - (distance/startDistance)
-        bar_distance.setProgress(Float(progress), animated: false)
-        bar_label.text = (String)(Int(distance))+" Meters"
+        var speed = Double(currentLocation.speed)
+
+        let distance = currentLocation.distanceFromLocation(targetLocation)
+        if(speed < 0.0){
+            speed = 1.4
+        }
+        
+        let time = distance/speed
         
         //get eta
-        let speed = currentLocation.speed
-        print(speed)
-        let eta = distance/speed
-        
-        if(speed != -1){
-            label_eta.text = "Time remaining: \(eta)"
-        }
-        else{
-            label_eta.text = "Time remaining: N/A"
-        }
+        print(time)
+        self.label_eta.text = "\(Int(time/60)+2) minutes to \(self.currentTarget)"
         
 
     }
     
-    
-    
+    func updateDistance(){
+        let distance = Double(currentLocation.distanceFromLocation(targetLocation))
+        let progress = 1 - (distance/startDistance)
+        bar_distance.setProgress(Float(progress), animated: false)
+        bar_label.text = (String)(Int(distance*3.28084))+" Feet"
+
+    }
+    func updateEta(){
+        
+    }
     func degreesToRadians(degrees: Double) -> Double { return degrees * M_PI / 180.0 }
     func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / M_PI }
     
@@ -260,6 +247,25 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                 image.transform = CGAffineTransformMakeRotation(a)
         })
     }
+    func calculateUserAngle(user:CLLocationCoordinate2D) {
+        
+        var x = 0.0; var y = 0.0;  var deg = 0.0; var delLon = 0.0;
+        
+        delLon = targetLocation.coordinate.longitude - user.longitude;
+        y = sin(delLon) * cos(targetLocation.coordinate.latitude);
+        x = cos(user.latitude) * sin(targetLocation.coordinate.latitude) - sin(user.latitude) * cos(targetLocation.coordinate.latitude) * cos(delLon);
+        
+        deg = radiansToDegrees(atan2(y, x))
+        if(deg<0){
+            deg = -deg;
+        } else {
+            deg = 360 - deg;
+        }
+        degrees = deg;
+        
+        
+    }
+
     
     
 }
