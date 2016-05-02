@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import MapKit
 class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate{
     @IBOutlet weak var label_current_lat: UILabel!
     @IBOutlet weak var label_current_long: UILabel!
@@ -211,9 +210,6 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         bar_label.text = (String)(Int(distance*3.28084))+" Feet"
 
     }
-    func updateEta(){
-        
-    }
     func degreesToRadians(degrees: Double) -> Double { return degrees * M_PI / 180.0 }
     func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / M_PI }
     
@@ -262,11 +258,7 @@ class ViewController:UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             deg = 360 - deg;
         }
         degrees = deg;
-        
-        
     }
 
-    
-    
 }
 
